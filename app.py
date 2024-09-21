@@ -20,7 +20,11 @@ def add_student():
         student_id = input("Enter the student number: ")
         first_name = input("Enter the student's name: ")
         last_name = input("Enter the student's nickname: ")
-        age = input("Enter the student's age: ")
+        while True:
+            age = input("Enter the student's age: ")
+            if age.isdigit() and int(age) > 2:
+                break
+            print("Please enter a positive integer greater than two that is valid for age. ")
         grade = input("Enter the student's class: ")
         registration_date = datetime.now().strftime("%Y-%m-%d")
 
@@ -111,7 +115,11 @@ def update_student():
             #اخذ معلومات الطالب الجديدة
             first_name = input("Enter the new student's name (To keep the local value, press Enter): ") or student[1]
             last_name = input("Enter the new student's nickname (To keep the local value, press Enter): ") or student[2]
-            age = input("Enter the new student's age (To keep the local value, press Enter): ") or student[3]
+            while True:
+                age = input("Enter the new student's age (To keep the local value, press Enter): ") or student[3]
+                if age.isdigit() and int(age) > 2:
+                    break
+                print("Please enter a positive integer greater than two that is valid for age. ")
             grade = input("Enter the new student's class (To keep the local value, press Enter): ") or student[4]
 
             #اضافة معلومات الطالب الجديدة الى قاعدة البيانات
