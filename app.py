@@ -17,15 +17,27 @@ def add_student():
         cursor = conn.cursor()
 
         #جمع معلومات الطالب
-        student_id = input("Enter the student number: ")
-        first_name = input("Enter the student's name: ")
-        last_name = input("Enter the student's nickname: ")
-        while True:
-            age = input("Enter the student's age: ")
-            if age.isdigit() and int(age) > 2:
+        while True:     #حلقة للتحقك من ان جميع البيانات معبأة
+            while True:     #حلقة للتحقك من ان المعرف ليس موجود لدى طالب اخر
+                student_id = input("Enter the student number: ")
+                cursor.execute("SELECT id FROM students WHERE id = ?", (student_id,))
+                if not cursor.fetchone():
+                    break
+                print("A student with this ID already exists. Please use a different ID.")
+                    
+            first_name = input("Enter the student's name: ")
+            last_name = input("Enter the student's nickname: ")
+            while True:
+                age = input("Enter the student's age: ")
+                if age == "":
+                    break
+                if age.isdigit() and int(age) > 2:
+                    break
+                print("Please enter a positive integer greater than two that is valid for age. ")
+            grade = input("Enter the student's class: ")
+            if student_id and first_name and last_name and grade and grade != None:
                 break
-            print("Please enter a positive integer greater than two that is valid for age. ")
-        grade = input("Enter the student's class: ")
+            print("Please enter student information")
         registration_date = datetime.now().strftime("%Y-%m-%d")
 
         #اضافة معلومات الطالب الى قاعدة البيانات
@@ -152,7 +164,7 @@ def show_student():
         cursor = conn.cursor()
 
         #التحقق من وجود الطالب وجلب معلوماته
-        student_id = input("EntEnter the student number whose information you want to view: ")
+        student_id = input("Enter the student number whose information you want to view: ")
         cursor.execute("SELECT * FROM students WHERE id = ?", (student_id,))
         student = cursor.fetchone()
         
