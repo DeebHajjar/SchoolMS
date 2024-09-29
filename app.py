@@ -129,6 +129,8 @@ def update_student():
             last_name = input("Enter the new student's nickname (To keep the local value, press Enter): ") or student[2]
             while True:
                 age = input("Enter the new student's age (To keep the local value, press Enter): ") or student[3]
+                if age == student[3]:
+                    break
                 if age.isdigit() and int(age) > 2:
                     break
                 print("Please enter a positive integer greater than two that is valid for age. ")
